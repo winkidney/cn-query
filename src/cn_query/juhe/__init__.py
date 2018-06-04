@@ -13,6 +13,7 @@ class Client:
     def __init__(self, api_key):
         self.api_key = api_key
         self.session = requests.session()
+        self.timeout = (5, 10)
 
     @staticmethod
     def _assert_call_success(error_code):
@@ -38,6 +39,7 @@ class ValidateBankCard4(Client):
         resp = self.session.get(
             url=url,
             params=args,
+            timeout=self.timeout,
         )
         data = resp.json()
         self._assert_call_success(data['error_code'])
@@ -58,6 +60,7 @@ class ValidateBankCard3(Client):
         resp = self.session.get(
             url=url,
             params=args,
+            timeout=self.timeout,
         )
         data = resp.json()
         self._assert_call_success(data['error_code'])
@@ -76,6 +79,7 @@ class CardInfoClient(Client):
         resp = self.session.get(
             url=url,
             params=args,
+            timeout=self.timeout,
         )
         data = resp.json()
         error_code = data['error_code']
