@@ -42,7 +42,8 @@ class ValidateBankCard4(Client):
             timeout=self.timeout,
         )
         data = resp.json()
-        self._assert_call_success(data['error_code'])
+        if data['error_code'] != 0:
+            return False
         return int(data['result']['res']) == 1
 
 
